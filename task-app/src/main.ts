@@ -20,7 +20,17 @@ export namespace MainApp {
 
   gameContainer.appendChild(app.canvas);
 
+  app.ticker.add(gameLoop);
+
   let currentScreen: BaseScreen;
+
+  const fpsTextField = new Text({
+    text: "0",
+    style: { fontSize: 24, fill: 0xffffff },
+  });
+  fpsTextField.x = 10;
+  fpsTextField.y = 10;
+  app.stage.addChild(fpsTextField);
 
   //load assets
   const taskOneAssets: string[] = [];
@@ -87,5 +97,9 @@ export namespace MainApp {
 
         break;
     }
+  }
+
+  function gameLoop() {
+    fpsTextField.text = "FPS: " + Math.round(app.ticker.FPS);
   }
 })();
