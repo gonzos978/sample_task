@@ -1,6 +1,6 @@
 import { BaseScreen } from "./BaseScreen";
 import { ScreenEnum } from "./ScreenEnum";
-import { signalName } from "./Utils";
+import { signalName } from "../Utils";
 
 export class TaskTreeScreen extends BaseScreen {
   constructor() {
