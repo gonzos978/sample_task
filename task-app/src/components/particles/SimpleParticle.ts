@@ -2,14 +2,11 @@ import { Point, Texture, EventMode } from "pixi.js";
 import { Container } from "@pixi/display";
 import { Emitter } from "@pixi/particle-emitter";
 import { explosion, fire2, smoke } from "./EmitterConfig";
-import { pause } from "../../Utils";
 
 export class SimpleParticle {
   private emitter: Emitter;
   private emitter1: Emitter;
   private emitter2: Emitter;
-  private emitterExplosion!: Emitter;
-  private shouldUpdateExplosion: boolean = false;
 
   private isRunning: boolean;
 

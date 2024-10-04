@@ -1,10 +1,10 @@
 import { Container } from "pixi.js";
-import { IScreen } from "../IScreen";
 import { EventSignal } from "../signals/EventSignal";
 import { Button } from "../ui/Button";
 import { ScreenEnum } from "../../data/ScreenEnum";
 import { BaseScreen } from "./BaseScreen";
 import { signalName } from "../../Utils";
+import { IScreen } from "./IScreen";
 
 export class StartScreen extends BaseScreen implements IScreen {
   public signal: EventSignal;
@@ -22,7 +22,7 @@ export class StartScreen extends BaseScreen implements IScreen {
     let posY = 0;
     this.taskNames.forEach((val) => {
       const btn = new Button();
-      btn.label = val;
+      btn.name = val;
       btn.on("click", (e) => {
         this.onClick(e);
       });

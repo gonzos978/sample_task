@@ -1,4 +1,4 @@
-import { EmitterConfigV1, EmitterConfigV3 } from "@pixi/particle-emitter";
+import { EmitterConfigV3 } from "@pixi/particle-emitter";
 import { Texture } from "pixi.js";
 
 export function explosion(texture: Texture): EmitterConfigV3 {
