@@ -38,8 +38,8 @@ export class StartScreen extends BaseScreen implements IScreen {
   protected override createButton() {}
 
   protected override onClick(e: any) {
-    const index = this.taskNames.indexOf(e.target.label);
-
+    const index = this.taskNames.indexOf(e.target.name);
+    console.log(index);
     if (index === 0) {
       this.signal.doEmmit(signalName, ScreenEnum.SCREEN_ONE);
     } else if (index === 1) {
