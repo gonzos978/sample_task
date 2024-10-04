@@ -29,6 +29,10 @@ import { Viewport } from "pixi-viewport";
     events: app.renderer.events,
   });
   app.stage.addChild(viewport);
+
+  const appContainer = new Container();
+  app.stage.addChild(appContainer);
+
   app.ticker.add(gameLoop);
 
   let currentScreen: BaseScreen;
@@ -76,7 +80,7 @@ import { Viewport } from "pixi-viewport";
     currentScreen.signal.on(signalName, (_data: any) => {
       switchScreens(_data);
     });
-    app.stage.addChild(currentScreen as Container);
+    appContainer.addChild(currentScreen as Container);
   }
 
   function switchScreens(screenData: ScreenEnum) {
@@ -89,7 +93,7 @@ import { Viewport } from "pixi-viewport";
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });
-        app.stage.addChild(currentScreen);
+        appContainer.addChild(currentScreen);
 
         break;
 
@@ -98,7 +102,7 @@ import { Viewport } from "pixi-viewport";
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });
-        app.stage.addChild(currentScreen);
+        appContainer.addChild(currentScreen);
 
         break;
 
@@ -107,7 +111,7 @@ import { Viewport } from "pixi-viewport";
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });
-        app.stage.addChild(currentScreen);
+        appContainer.addChild(currentScreen);
 
         break;
 
@@ -116,7 +120,7 @@ import { Viewport } from "pixi-viewport";
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });
-        app.stage.addChild(currentScreen);
+        appContainer.addChild(currentScreen);
 
         break;
     }
