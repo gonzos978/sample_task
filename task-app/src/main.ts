@@ -1,12 +1,12 @@
 import { Application, Assets, Container, Text } from "pixi.js";
-import { StartScreen } from "./components/StartScreen";
-import { ScreenEnum } from "./components/ScreenEnum";
-import { TaskOneScreen } from "./components/TaskOneScreen";
+import { StartScreen } from "./components/screens/StartScreen";
+import { ScreenEnum } from "./data/ScreenEnum";
+import { TaskOneScreen } from "./components/screens/TaskOneScreen";
 
-import { BaseScreen } from "./components/BaseScreen";
+import { BaseScreen } from "./components/screens/BaseScreen";
 import { Library, signalName } from "./Utils";
-import { TaskTwoScreen } from "./components/TaskTwoScreen";
-import { TaskThreeScreen } from "./components/TaskThreeScreen";
+import { TaskTwoScreen } from "./components/screens/TaskTwoScreen";
+import { TaskThreeScreen } from "./components/screens/TaskThreeScreen";
 
 (async () => {
   let gameContainer = document.getElementById("app") as HTMLElement;

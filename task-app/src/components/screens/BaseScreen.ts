@@ -1,7 +1,7 @@
 import { Container } from "pixi.js";
-import { EventSignal } from "./EventSignal";
+import { EventSignal } from "../signals/EventSignal";
 import { IScreen } from "./IScreen";
-import { Button } from "./Button";
+import { Button } from "../ui/Button";
 
 export class BaseScreen extends Container implements IScreen {
   public signal: EventSignal;

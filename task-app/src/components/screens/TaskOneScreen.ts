@@ -1,6 +1,6 @@
-import { ScreenEnum } from "./ScreenEnum";
+import { ScreenEnum } from "../../data/ScreenEnum";
 import { BaseScreen } from "./BaseScreen";
-import { createSpriteFromId, signalName } from "../Utils";
+import { createSpriteFromId, signalName } from "../../Utils";
 import { Container, Graphics, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
 

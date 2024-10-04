@@ -1,10 +1,10 @@
 import { Container } from "pixi.js";
-import { IScreen } from "./IScreen";
-import { EventSignal } from "./EventSignal";
-import { Button } from "./Button";
-import { ScreenEnum } from "./ScreenEnum";
+import { IScreen } from "../IScreen";
+import { EventSignal } from "../signals/EventSignal";
+import { Button } from "../ui/Button";
+import { ScreenEnum } from "../../data/ScreenEnum";
 import { BaseScreen } from "./BaseScreen";
-import { signalName } from "../Utils";
+import { signalName } from "../../Utils";
 
 export class StartScreen extends BaseScreen implements IScreen {
   public signal: EventSignal;

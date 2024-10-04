@@ -1,13 +1,13 @@
 import { BaseScreen } from "./BaseScreen";
-import { ScreenEnum } from "./ScreenEnum";
+import { ScreenEnum } from "../../data/ScreenEnum";
 import {
   createSpriteFromId,
   generateRandomArray,
   getRandomNumber,
   shuffleArray,
   signalName,
-} from "../Utils";
-import { Messages } from "../data/Messages";
+} from "../../Utils";
+import { Messages } from "../../data/Messages";
 import { Container, Text } from "pixi.js";
 
 export class TaskTwoScreen extends BaseScreen {
