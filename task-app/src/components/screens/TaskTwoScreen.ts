@@ -10,7 +10,7 @@ import {
   signalName,
 } from "../../Utils";
 import { Messages } from "../../data/Messages";
-import { Container, IDestroyOptions, Text } from "pixi.js";
+import { Container, Text } from "pixi.js";
 
 export class TaskTwoScreen extends BaseScreen {
   private messages!: Messages;

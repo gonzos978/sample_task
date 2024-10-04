@@ -18,6 +18,7 @@ export class TaskOneScreen extends BaseScreen {
   private stackInfo2!: Text;
 
   private movingInterval!: number;
+  private tl!: TimelineLite;
 
   constructor() {
     super();
@@ -104,8 +105,8 @@ export class TaskOneScreen extends BaseScreen {
 
     this.stackInfo1.text = this.stackHolderOne.length;
 
-    const tl = gsap.timeline();
-    tl.to(card, {
+    this.tl = gsap.timeline();
+    this.tl.to(card, {
       duration: 2,
       x: this.containerTwo.x + 10 + this.offsetX,
       onComplete: () => {
@@ -120,7 +121,7 @@ export class TaskOneScreen extends BaseScreen {
 
   protected override onClick(): void {
     clearInterval(this.movingInterval);
-
+    this.tl.clear();
     this.signal.doEmmit(signalName, ScreenEnum.START_SCREEN);
   }
 
