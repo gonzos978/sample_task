@@ -24,6 +24,13 @@ export class TaskOneScreen extends BaseScreen {
     this.init();
   }
 
+  public override destroy(): void {
+    while (this.containerOne.children.length > 0) {
+      this.containerOne.removeChildAt(0);
+    }
+    this.containerOne.parent.removeChild(this.containerOne);
+  }
+
   private init() {
     const placeholderOne = new Container();
     this.addChild(placeholderOne);

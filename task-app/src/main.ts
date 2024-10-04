@@ -80,6 +80,7 @@ import { Viewport } from "pixi-viewport";
   }
 
   function switchScreens(screenData: ScreenEnum) {
+    currentScreen.destroy();
     currentScreen.parent.removeChild(currentScreen);
 
     switch (screenData) {

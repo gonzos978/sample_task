@@ -26,4 +26,5 @@ export class BaseScreen extends Container implements IScreen {
     this.baseButton.x = 400 - this.baseButton.width / 2;
     this.baseButton.y = 600 - this.baseButton.height * 2;
   }
+  public destroy(): void {}
 }

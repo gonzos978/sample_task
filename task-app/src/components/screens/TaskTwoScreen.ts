@@ -10,7 +10,7 @@ import {
   signalName,
 } from "../../Utils";
 import { Messages } from "../../data/Messages";
-import { Container, Text } from "pixi.js";
+import { Container, IDestroyOptions, Text } from "pixi.js";
 
 export class TaskTwoScreen extends BaseScreen {
   private messages!: Messages;
@@ -27,6 +27,13 @@ export class TaskTwoScreen extends BaseScreen {
     this.init();
 
     this.baseButton.y = 600 - this.baseButton.height;
+  }
+
+  public override destroy(): void {
+    while (this.container.children.length > 0) {
+      this.container.removeChildAt(0);
+    }
+    this.removeChild(this.container);
   }
 
   private init() {
@@ -82,7 +89,7 @@ export class TaskTwoScreen extends BaseScreen {
         this.container.addChild(tf);
         previousNum = shuffledNumbers[i];
 
-        fitTextToObject(tf, 600);
+        fitTextToObject(tf, 800);
       }
     }
 
@@ -93,8 +100,6 @@ export class TaskTwoScreen extends BaseScreen {
       this.startCreation();
     }, 3000);
   }
-
-  private clearContainer() {}
 
   private getImage(imageId: number) {
     return createSpriteFromId(`e_${imageId}`);
