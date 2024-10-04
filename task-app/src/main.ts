@@ -58,9 +58,12 @@ import { Viewport } from "pixi-viewport";
 
   Assets.add({
     alias: `waterdrop`,
-    src: `./assets/TaskThree/waterdrop.png`,
+    src: `./assets/TaskThree/texture.png`,
   });
   taskTwoAssets.push("waterdrop");
+
+  Assets.add({ alias: "city", src: "./assets/TaskThree/apocalyptic_city.jpg" });
+  taskTwoAssets.push("city");
 
   const loadPromise = Assets.load([...taskOneAssets, ...taskTwoAssets]);
   loadPromise.then((texturesData) => {
