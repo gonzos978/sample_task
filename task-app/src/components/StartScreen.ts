@@ -22,7 +22,7 @@ export class StartScreen extends BaseScreen implements IScreen {
     let posY = 0;
     this.taskNames.forEach((val) => {
       const btn = new Button();
-      btn.name = val;
+      btn.label = val;
       btn.on("click", (e) => {
         this.onClick(e);
       });
@@ -38,11 +38,11 @@ export class StartScreen extends BaseScreen implements IScreen {
   protected override createButton() {}
 
   protected override onClick(e: any) {
-    const index = this.taskNames.indexOf(e.target.name);
+    const index = this.taskNames.indexOf(e.target.label);
 
     if (index === 0) {
       this.signal.doEmmit(signalName, ScreenEnum.SCREEN_ONE);
-    } else if (index === 0) {
+    } else if (index === 1) {
       this.signal.doEmmit(signalName, ScreenEnum.SCREEN_TWO);
     } else {
       this.signal.doEmmit(signalName, ScreenEnum.SCREEN_THREE);

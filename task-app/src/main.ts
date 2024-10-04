@@ -2,12 +2,11 @@ import { Application, Assets, Container, Text } from "pixi.js";
 import { StartScreen } from "./components/StartScreen";
 import { ScreenEnum } from "./components/ScreenEnum";
 import { TaskOneScreen } from "./components/TaskOneScreen";
+
 import { BaseScreen } from "./components/BaseScreen";
 import { Library, signalName } from "./Utils";
-
-export namespace MainApp {
-  export var app: any;
-}
+import { TaskTwoScreen } from "./components/TaskTwoScreen";
+import { TaskThreeScreen } from "./components/TaskThreeScreen";
 
 (async () => {
   let gameContainer = document.getElementById("app") as HTMLElement;
@@ -42,9 +41,16 @@ export namespace MainApp {
     i--;
   }
 
-  const loadPromise = Assets.load(taskOneAssets);
+  i = 9;
+  const taskTwoAssets: string[] = [];
+  while (i >= 1) {
+    Assets.add({ alias: `e_${i}`, src: `./assets/TaskTwo/e${i}.png` });
+    taskTwoAssets.push(`e_${i}`);
+    i--;
+  }
+
+  const loadPromise = Assets.load([...taskOneAssets, ...taskTwoAssets]);
   loadPromise.then((texturesData) => {
-    console.log("foo");
     Library.myAssetsLibrary = texturesData;
     start();
   });
@@ -71,7 +77,7 @@ export namespace MainApp {
         break;
 
       case ScreenEnum.SCREEN_TWO:
-        currentScreen = new TaskOneScreen();
+        currentScreen = new TaskTwoScreen();
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });
@@ -80,7 +86,7 @@ export namespace MainApp {
         break;
 
       case ScreenEnum.SCREEN_THREE:
-        currentScreen = new TaskOneScreen();
+        currentScreen = new TaskThreeScreen();
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });
