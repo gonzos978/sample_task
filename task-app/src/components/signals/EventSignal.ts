@@ -1,4 +1,4 @@
-import { EventEmitter } from "pixi.js";
+import EventEmitter from "eventemitter3";
 
 export class EventSignal extends EventEmitter {
   constructor() {

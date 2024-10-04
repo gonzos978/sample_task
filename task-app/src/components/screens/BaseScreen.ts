@@ -5,7 +5,7 @@ import { Button } from "../ui/Button";
 
 export class BaseScreen extends Container implements IScreen {
   public signal: EventSignal;
-  private baseButton!: Button;
+  protected baseButton!: Button;
 
   constructor() {
     super();

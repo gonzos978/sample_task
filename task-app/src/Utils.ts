@@ -1,6 +1,12 @@
-import { Sprite } from "pixi.js";
+import { Sprite, Text } from "pixi.js";
 
 export const signalName: string = "SCREEN_SIGNAL";
+
+export function pause(ms: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => resolve(), ms);
+  });
+}
 
 export namespace Library {
   export var myAssetsLibrary: Record<string, any> = {};
@@ -40,4 +46,15 @@ export function shuffleArray<T>(array: T[]): T[] {
 
 export function getRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+export function getRandomColor() {
+  return Math.floor(Math.random() * 0xffffff);
+}
+
+export function fitTextToObject(text: Text, maxWidth: number) {
+  if (text.width > maxWidth) {
+    do {
+      text.scale.set(-0.001, -0.001);
+    } while (text.width > maxWidth);
+  }
 }

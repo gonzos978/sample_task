@@ -2,7 +2,9 @@ import { BaseScreen } from "./BaseScreen";
 import { ScreenEnum } from "../../data/ScreenEnum";
 import {
   createSpriteFromId,
+  fitTextToObject,
   generateRandomArray,
+  getRandomColor,
   getRandomNumber,
   shuffleArray,
   signalName,
@@ -23,6 +25,8 @@ export class TaskTwoScreen extends BaseScreen {
     super();
 
     this.init();
+
+    this.baseButton.y = 600 - this.baseButton.height;
   }
 
   private init() {
@@ -65,9 +69,9 @@ export class TaskTwoScreen extends BaseScreen {
         const msg = this.messages.getMessage(
           getRandomNumber(1, this.messages.getMessageData().length - 1)
         );
-        const tf = new Text({
-          text: msg,
-          style: { fontSize: 24, fill: 0xffffff },
+        const tf = new Text(msg, {
+          fontSize: getRandomNumber(25, 45),
+          fill: getRandomColor(),
         });
         if (previousNum === 0) {
           posY = posY + imgHeight + 10;
@@ -77,6 +81,8 @@ export class TaskTwoScreen extends BaseScreen {
 
         this.container.addChild(tf);
         previousNum = shuffledNumbers[i];
+
+        fitTextToObject(tf, 600);
       }
     }
 

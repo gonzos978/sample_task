@@ -8,9 +8,10 @@ export class Button extends Container {
   ) {
     super();
 
-    const rect = new Graphics()
-      .roundRect(0, 0, width, height, 10)
-      .fill({ color: color, alpha: 1 });
+    const rect = new Graphics();
+    rect.beginFill(color);
+    rect.drawRoundedRect(0, 0, width, height, 10);
+    rect.endFill();
 
     this.addChild(rect);
 
@@ -18,10 +19,7 @@ export class Button extends Container {
   }
 
   public addLabel(value: string) {
-    const tf = new Text({
-      text: value,
-      style: { fontSize: 24, fill: 0xffffff },
-    });
+    const tf = new Text(value, { fontSize: 24, fill: 0xffffff });
     this.addChild(tf);
 
     this.alignTextWithContent(tf);

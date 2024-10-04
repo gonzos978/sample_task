@@ -7,26 +7,33 @@ import { BaseScreen } from "./components/screens/BaseScreen";
 import { Library, signalName } from "./Utils";
 import { TaskTwoScreen } from "./components/screens/TaskTwoScreen";
 import { TaskThreeScreen } from "./components/screens/TaskThreeScreen";
+import { Viewport } from "pixi-viewport";
 
 (async () => {
-  let gameContainer = document.getElementById("app") as HTMLElement;
-  const app = new Application();
-  await app.init({
+  const canvas = document.querySelector<HTMLCanvasElement>("canvas");
+  const app = new Application({
+    view: canvas as HTMLCanvasElement,
     width: 800,
     height: 600,
+    antialias: true,
+    autoDensity: true,
     backgroundColor: 0x87ceeb,
+    resolution: devicePixelRatio || 1,
   });
 
-  gameContainer.appendChild(app.canvas);
-
+  const viewport = new Viewport({
+    worldWidth: 800,
+    worldHeight: 600,
+    screenWidth: 800,
+    screenHeight: 600,
+    events: app.renderer.events,
+  });
+  app.stage.addChild(viewport);
   app.ticker.add(gameLoop);
 
   let currentScreen: BaseScreen;
 
-  const fpsTextField = new Text({
-    text: "0",
-    style: { fontSize: 24, fill: 0xffffff },
-  });
+  const fpsTextField = new Text("0", { fontSize: 24, fill: 0xffffff });
   fpsTextField.x = 10;
   fpsTextField.y = 10;
   app.stage.addChild(fpsTextField);
@@ -49,6 +56,12 @@ import { TaskThreeScreen } from "./components/screens/TaskThreeScreen";
     i--;
   }
 
+  Assets.add({
+    alias: `waterdrop`,
+    src: `./assets/TaskThree/waterdrop.png`,
+  });
+  taskTwoAssets.push("waterdrop");
+
   const loadPromise = Assets.load([...taskOneAssets, ...taskTwoAssets]);
   loadPromise.then((texturesData) => {
     Library.myAssetsLibrary = texturesData;
@@ -57,7 +70,7 @@ import { TaskThreeScreen } from "./components/screens/TaskThreeScreen";
 
   function start() {
     currentScreen = new StartScreen();
-    currentScreen.signal.on(signalName, (_data) => {
+    currentScreen.signal.on(signalName, (_data: any) => {
       switchScreens(_data);
     });
     app.stage.addChild(currentScreen as Container);
@@ -86,7 +99,7 @@ import { TaskThreeScreen } from "./components/screens/TaskThreeScreen";
         break;
 
       case ScreenEnum.SCREEN_THREE:
-        currentScreen = new TaskThreeScreen();
+        currentScreen = new TaskThreeScreen(app);
         currentScreen.signal.on(signalName, (_data: any) => {
           switchScreens(_data);
         });

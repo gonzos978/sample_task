@@ -64,18 +64,18 @@ export class TaskOneScreen extends BaseScreen {
     this.containerTwo.x = this.containerOne.x + 300;
     this.containerTwo.y = this.containerOne.y;
 
-    this.stackInfo1 = new Text({
-      text: this.stackHolderOne.length,
-      style: { fontSize: 24, fill: 0xffffff },
+    this.stackInfo1 = new Text(this.stackHolderOne.length, {
+      fontSize: 24,
+      fill: 0xffffff,
     });
 
     this.stackInfo1.x = 150;
     this.stackInfo1.y = 100;
     this.addChild(this.stackInfo1);
 
-    this.stackInfo2 = new Text({
-      text: this.stackHolderTwo.length,
-      style: { fontSize: 24, fill: 0xffffff },
+    this.stackInfo2 = new Text(this.stackHolderTwo.length, {
+      fontSize: 24,
+      fill: 0xffffff,
     });
 
     this.stackInfo2.x = 550;
@@ -118,9 +118,10 @@ export class TaskOneScreen extends BaseScreen {
   }
 
   private createPlaceholder() {
-    const g = new Graphics()
-      .roundRect(0, 0, 90, 130, 10)
-      .fill({ color: 0xcccccc, alpha: 1 });
+    const g = new Graphics();
+    g.beginFill(0xcccccc);
+    g.drawRoundedRect(0, 0, 90, 130, 10);
+    g.endFill();
 
     return g;
   }
