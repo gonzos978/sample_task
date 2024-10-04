@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@pixi/particle-emitter": "^5.0.8",
+    "eventemitter3": "^5.0.1",
     "gsap": "^3.12.5",
-    "pixi.js": "^8.4.1"
+    "pixi-viewport": "^5.0.3",
+    "pixi.js": "^7.4.0"
   }
 }
