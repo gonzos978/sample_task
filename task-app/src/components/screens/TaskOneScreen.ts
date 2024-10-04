@@ -121,7 +121,9 @@ export class TaskOneScreen extends BaseScreen {
 
   protected override onClick(): void {
     clearInterval(this.movingInterval);
-    this.tl.clear();
+    if (this.tl) {
+      this.tl.clear();
+    }
     this.signal.doEmmit(signalName, ScreenEnum.START_SCREEN);
   }
 
