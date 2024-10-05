@@ -4,6 +4,7 @@ import { IMPACT_SIGNAL, Library, pause, signalName } from "../../Utils";
 import { Application, Container, Point, Sprite, Texture } from "pixi.js";
 import { SimpleParticle } from "../particles/SimpleParticle";
 import { MissleRopeManager } from "../rope/MissleRopeManager";
+import { Airplane } from "../Airplane";
 
 export class TaskThreeScreen extends BaseScreen {
   private mainApp: Application;
@@ -12,6 +13,9 @@ export class TaskThreeScreen extends BaseScreen {
   private missleManager: MissleRopeManager;
   private cratersContainer = new Container();
   private ropeContainer: Container;
+
+  private airplane: Airplane;
+
   constructor(app: Application) {
     super();
 
@@ -24,12 +28,14 @@ export class TaskThreeScreen extends BaseScreen {
     sp.scale.set(0.7, 0.7);
     this.addChild(sp);
 
-    this.addChild(this.cratersContainer);
-
     const c = new Container();
     c.interactive = false;
-    this.addChild(c);
 
+    this.airplane = new Airplane(c);
+    this.addChild(this.airplane);
+
+    this.addChild(this.cratersContainer);
+    this.addChild(c);
     this.particle = new SimpleParticle(c);
 
     this.startLoop();
@@ -57,12 +63,15 @@ export class TaskThreeScreen extends BaseScreen {
     this.startFn = () => {
       this.gameLoop();
     };
+    this.particle.start();
+    this.airplane.start();
     this.mainApp.ticker.add(this.startFn);
   }
 
   private gameLoop() {
     this.particle.update(this.mainApp.ticker.deltaTime);
-    this.particle.start();
+
+    this.airplane.update(this.mainApp.ticker.deltaTime);
   }
 
   public override destroy() {
@@ -77,6 +86,7 @@ export class TaskThreeScreen extends BaseScreen {
   protected override onClick(): void {
     this.mainApp.ticker.remove(this.startFn);
     this.particle.stop();
+    this.airplane.stop();
     this.missleManager.stopTrails();
     this.signal.doEmmit(signalName, ScreenEnum.START_SCREEN);
   }

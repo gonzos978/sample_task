@@ -8,9 +8,9 @@ export function explosion(texture: Texture): EmitterConfigV3 {
       max: 0.5,
     },
     frequency: 0.008,
-    emitterLifetime: 0.31,
+    emitterLifetime: 0.61,
     maxParticles: 1000,
-    addAtBack: false,
+    addAtBack: true,
     pos: {
       x: 0,
       y: 0,
@@ -75,11 +75,11 @@ export function explosion(texture: Texture): EmitterConfigV3 {
             list: [
               {
                 time: 0,
-                value: "fb1010",
+                value: "000000",
               },
               {
                 time: 1,
-                value: "f5b830",
+                value: "cccccc",
               },
             ],
           },
@@ -98,8 +98,8 @@ export function explosion(texture: Texture): EmitterConfigV3 {
           data: {
             x: 0,
             y: 0,
-            radius: 40,
-            innerRadius: 39,
+            radius: 0.1,
+            innerRadius: 0.05,
             affectRotation: true,
           },
         },
@@ -116,12 +116,12 @@ export function getFireEmitterConfig(texture: Texture) {
       min: 0.1,
       max: 0.8,
     },
-    frequency: 0.005, // How frequently particles are emitted
+    frequency: 0.001, // How frequently particles are emitted
     emitterLifetime: -1, // Looping particles
     maxParticles: 100,
     addAtBack: false,
     pos: {
-      x: 400,
+      x: 40,
       y: 300,
     },
     behaviors: [
@@ -141,8 +141,8 @@ export function getFireEmitterConfig(texture: Texture) {
         config: {
           scale: {
             list: [
-              { time: 0, value: 0.5 },
-              { time: 1, value: 1 },
+              { time: 0, value: 0.1 },
+              { time: 1, value: 0.3 },
             ],
             isStepped: false,
           },
@@ -310,7 +310,7 @@ export function fire2(texture: Texture, texture1: Texture) {
   return f;
 }
 
-export function smoke(texture: Texture, texture1: Texture) {
+export function fireSmoke(texture: Texture, texture1: Texture) {
   const smoke = {
     lifetime: {
       min: 0.5,
@@ -449,6 +449,115 @@ export function smoke(texture: Texture, texture1: Texture) {
             radius: 5,
             innerRadius: 0,
             affectRotation: false,
+          },
+        },
+      },
+    ],
+  };
+
+  return smoke;
+}
+
+export function smoke(texture: Texture) {
+  const smoke = {
+    lifetime: {
+      min: 0.5,
+      max: 0.5,
+    },
+    frequency: 0.001,
+    emitterLifetime: 0.61,
+    maxParticles: 1000,
+    addAtBack: true,
+    pos: {
+      x: 0,
+      y: 0,
+    },
+    behaviors: [
+      {
+        type: "alpha",
+        config: {
+          alpha: {
+            list: [
+              {
+                time: 0,
+                value: 0.8,
+              },
+              {
+                time: 1,
+                value: 0.1,
+              },
+            ],
+          },
+        },
+      },
+      {
+        type: "moveSpeed",
+        config: {
+          speed: {
+            list: [
+              {
+                time: 0,
+                value: 200,
+              },
+              {
+                time: 1,
+                value: 100,
+              },
+            ],
+          },
+        },
+      },
+      {
+        type: "scale",
+        config: {
+          scale: {
+            list: [
+              {
+                time: 0,
+                value: 1,
+              },
+              {
+                time: 1,
+                value: 0.3,
+              },
+            ],
+          },
+          minMult: 1,
+        },
+      },
+      {
+        type: "color",
+        config: {
+          color: {
+            list: [
+              {
+                time: 0,
+                value: "000000",
+              },
+              {
+                time: 1,
+                value: "cccccc",
+              },
+            ],
+          },
+        },
+      },
+      {
+        type: "textureRandom",
+        config: {
+          textures: [texture],
+        },
+      },
+      {
+        type: "spawnShape",
+        config: {
+          type: "torus",
+          data: {
+            x: 0,
+            y: 0,
+            radius: 0.1,
+            innerRadius: 0.05,
+            affectRotation: true,
           },
         },
       },

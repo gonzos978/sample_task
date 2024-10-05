@@ -1,7 +1,7 @@
 import { Point, Texture } from "pixi.js";
 import { Container } from "@pixi/display";
 import { Emitter } from "@pixi/particle-emitter";
-import { fire2, fireSmoke, smoke, spawn } from "./EmitterConfig";
+import { fire2, fireSmoke } from "./EmitterConfig";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getRandomNumber } from "../../Utils";
@@ -13,6 +13,7 @@ export type EmitterData = {
 };
 
 export class SimpleParticle {
+  public pt3: Point = new Point(-100, 170);
   private mainContainer: Container;
   private emittersHolder: EmitterData[];
   private emitter: Emitter;

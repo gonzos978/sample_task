@@ -81,6 +81,12 @@ import { Viewport } from "pixi-viewport";
   });
   taskTwoAssets.push("crater");
 
+  Assets.add({
+    alias: "airplane",
+    src: "./assets/TaskThree/airplane.png",
+  });
+  taskTwoAssets.push("airplane");
+
   const loadPromise = Assets.load([...taskOneAssets, ...taskTwoAssets]);
   loadPromise.then((texturesData) => {
     Library.myAssetsLibrary = texturesData;
