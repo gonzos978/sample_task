@@ -11,6 +11,7 @@ export class TaskThreeScreen extends BaseScreen {
   private particle!: SimpleParticle;
   private missleManager: MissleRopeManager;
   private cratersContainer = new Container();
+  private ropeContainer: Container;
   constructor(app: Application) {
     super();
 
@@ -33,9 +34,9 @@ export class TaskThreeScreen extends BaseScreen {
 
     this.startLoop();
 
-    const ropeContainer = new Container();
-    this.addChild(ropeContainer);
-    this.missleManager = new MissleRopeManager(ropeContainer);
+    this.ropeContainer = new Container();
+    this.addChild(this.ropeContainer);
+    this.missleManager = new MissleRopeManager(this.ropeContainer);
     this.missleManager.signal.on(IMPACT_SIGNAL, (data) => {
       this.setMisllePoint(data);
     });
@@ -63,8 +64,19 @@ export class TaskThreeScreen extends BaseScreen {
     this.particle.update(this.mainApp.ticker.deltaTime);
     this.particle.start();
   }
+
+  private override destroy() {
+    while (this.ropeContainer.children.length > 0) {
+      this.ropeContainer.removeChildAt(0);
+    }
+
+    while (this.cratersContainer.children.length > 0) {
+      this.cratersContainer.removeChildAt(0);
+    }
+  }
   protected override onClick(): void {
     this.mainApp.ticker.remove(this.startFn);
+    this.particle.stop();
     this.missleManager.stopTrails();
     this.signal.doEmmit(signalName, ScreenEnum.START_SCREEN);
   }

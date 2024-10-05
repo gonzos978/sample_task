@@ -84,8 +84,14 @@ export class SimpleParticle {
     this.isRunning = false;
     this.emittersHolder.forEach((element: EmitterData) => {
       element.emitter.emit = false;
-      element.emitter.particleCount = 0;
+      element.emitter.maxParticles = 0;
+      element.emitter.particlesPerWave = 0;
     });
+
+    while (this.mainContainer.children.length > 0) {
+      this.mainContainer.removeChildAt(0);
+    }
+    this.emittersHolder = [];
   }
 
   public update(deltaTime: number) {
