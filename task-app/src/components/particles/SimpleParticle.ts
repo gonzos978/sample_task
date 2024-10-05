@@ -1,9 +1,10 @@
 import { Point, Texture } from "pixi.js";
 import { Container } from "@pixi/display";
 import { Emitter } from "@pixi/particle-emitter";
-import { fire2, smoke } from "./EmitterConfig";
+import { fire2, fireSmoke, smoke, spawn } from "./EmitterConfig";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { getRandomNumber } from "../../Utils";
 gsap.registerPlugin(MotionPathPlugin);
 
 export type EmitterData = {
@@ -43,7 +44,7 @@ export class SimpleParticle {
     this.emittersHolder.push({ emitter: this.emitter, point: this.pt });
     this.emitter1 = new Emitter(
       this.mainContainer,
-      smoke(
+      fireSmoke(
         Texture.from("./assets/TaskThree/texture.png"),
         Texture.from("./assets/TaskThree/Fire.png")
       )
@@ -52,7 +53,7 @@ export class SimpleParticle {
 
     this.emitter2 = new Emitter(
       this.mainContainer,
-      smoke(
+      fireSmoke(
         Texture.from("./assets/TaskThree/texture.png"),
         Texture.from("./assets/TaskThree/Fire.png")
       )
@@ -61,14 +62,23 @@ export class SimpleParticle {
   }
 
   public setnewFire(pt: Point) {
+    const rn = getRandomNumber(0, 10);
     const emitter = new Emitter(
       this.mainContainer,
-      smoke(
-        Texture.from("./assets/TaskThree/texture.png"),
-        Texture.from("./assets/TaskThree/Fire.png")
-      )
+      rn < 5
+        ? fireSmoke(
+            Texture.from("./assets/TaskThree/texture.png"),
+            Texture.from("./assets/TaskThree/Fire.png")
+          )
+        : fire2(
+            Texture.from("./assets/TaskThree/texture.png"),
+            Texture.from("./assets/TaskThree/Fire.png")
+          )
     );
 
+    emitter.minLifetime = getRandomNumber(0.1, 0.3);
+    emitter.maxLifetime = getRandomNumber(0.3, 0.7);
+    emitter.maxParticles = getRandomNumber(100, 500);
     emitter.spawnPos.copyFrom(pt);
     emitter.emit = true;
     this.emittersHolder.push({ emitter: emitter, point: pt });
