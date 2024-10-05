@@ -65,7 +65,7 @@ export class TaskThreeScreen extends BaseScreen {
     this.particle.start();
   }
 
-  private override destroy() {
+  public override destroy() {
     while (this.ropeContainer.children.length > 0) {
       this.ropeContainer.removeChildAt(0);
     }
