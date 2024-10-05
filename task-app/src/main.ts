@@ -69,6 +69,18 @@ import { Viewport } from "pixi-viewport";
   Assets.add({ alias: "city", src: "./assets/TaskThree/apocalyptic_city.jpg" });
   taskTwoAssets.push("city");
 
+  Assets.add({
+    alias: "trail",
+    src: "./assets/TaskThree/trail.png",
+  });
+  taskTwoAssets.push("trail");
+
+  Assets.add({
+    alias: "crater",
+    src: "./assets/TaskThree/crater.png",
+  });
+  taskTwoAssets.push("crater");
+
   const loadPromise = Assets.load([...taskOneAssets, ...taskTwoAssets]);
   loadPromise.then((texturesData) => {
     Library.myAssetsLibrary = texturesData;

@@ -1,14 +1,16 @@
 import { BaseScreen } from "./BaseScreen";
 import { ScreenEnum } from "../../data/ScreenEnum";
-import { Library, pause, signalName } from "../../Utils";
-import { Application, Container, Sprite, Texture } from "pixi.js";
+import { IMPACT_SIGNAL, Library, pause, signalName } from "../../Utils";
+import { Application, Container, Point, Sprite, Texture } from "pixi.js";
 import { SimpleParticle } from "../particles/SimpleParticle";
+import { MissleRopeManager } from "../rope/MissleRopeManager";
 
 export class TaskThreeScreen extends BaseScreen {
   private mainApp: Application;
   private startFn!: () => void;
   private particle!: SimpleParticle;
-
+  private missleManager: MissleRopeManager;
+  private cratersContainer = new Container();
   constructor(app: Application) {
     super();
 
@@ -21,6 +23,8 @@ export class TaskThreeScreen extends BaseScreen {
     sp.scale.set(0.7, 0.7);
     this.addChild(sp);
 
+    this.addChild(this.cratersContainer);
+
     const c = new Container();
     c.interactive = false;
     this.addChild(c);
@@ -28,6 +32,23 @@ export class TaskThreeScreen extends BaseScreen {
     this.particle = new SimpleParticle(c);
 
     this.startLoop();
+
+    const ropeContainer = new Container();
+    this.addChild(ropeContainer);
+    this.missleManager = new MissleRopeManager(ropeContainer);
+    this.missleManager.signal.on(IMPACT_SIGNAL, (data) => {
+      this.setMisllePoint(data);
+    });
+  }
+
+  private setMisllePoint(data: Point) {
+    const crater = Sprite.from(Library.myAssetsLibrary["crater"]);
+    crater.scale.set(0.5, 0.4);
+    crater.anchor.set(0.5, 0.5);
+    crater.x = data.x;
+    crater.y = data.y;
+    this.cratersContainer.addChild(crater);
+    this.particle.setnewFire(data);
   }
 
   private async startLoop() {
@@ -44,6 +65,7 @@ export class TaskThreeScreen extends BaseScreen {
   }
   protected override onClick(): void {
     this.mainApp.ticker.remove(this.startFn);
+    this.missleManager.stopTrails();
     this.signal.doEmmit(signalName, ScreenEnum.START_SCREEN);
   }
 }

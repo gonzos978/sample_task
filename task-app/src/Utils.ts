@@ -1,6 +1,8 @@
 import { Sprite, Text } from "pixi.js";
 
 export const signalName: string = "SCREEN_SIGNAL";
+export const ROPE_SIGNAL: string = "ROPE_SIGNAL";
+export const IMPACT_SIGNAL: string = "IMPACT_SIGNAL";
 
 export function pause(ms: number) {
   return new Promise<void>((resolve) => {

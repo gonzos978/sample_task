@@ -7,8 +7,7 @@ export function explosion(texture: Texture): EmitterConfigV3 {
       min: 0.5,
       max: 0.5,
     },
-    particlesPerWave: 10,
-    frequency: 0.1,
+    frequency: 0.008,
     emitterLifetime: 0.31,
     maxParticles: 1000,
     addAtBack: false,
@@ -35,10 +34,20 @@ export function explosion(texture: Texture): EmitterConfigV3 {
         },
       },
       {
-        type: "moveSpeedStatic",
+        type: "moveSpeed",
         config: {
-          min: 200,
-          max: 200,
+          speed: {
+            list: [
+              {
+                time: 0,
+                value: 200,
+              },
+              {
+                time: 1,
+                value: 100,
+              },
+            ],
+          },
         },
       },
       {
@@ -66,11 +75,11 @@ export function explosion(texture: Texture): EmitterConfigV3 {
             list: [
               {
                 time: 0,
-                value: "fd1111",
+                value: "fb1010",
               },
               {
                 time: 1,
-                value: "f7a134",
+                value: "f5b830",
               },
             ],
           },
@@ -83,11 +92,16 @@ export function explosion(texture: Texture): EmitterConfigV3 {
         },
       },
       {
-        type: "spawnBurst",
+        type: "spawnShape",
         config: {
-          start: 0,
-          spacing: 0,
-          distance: 0,
+          type: "torus",
+          data: {
+            x: 0,
+            y: 0,
+            radius: 40,
+            innerRadius: 39,
+            affectRotation: true,
+          },
         },
       },
     ],

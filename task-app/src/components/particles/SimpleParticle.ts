@@ -1,9 +1,19 @@
-import { Point, Texture, EventMode } from "pixi.js";
+import { Point, Texture } from "pixi.js";
 import { Container } from "@pixi/display";
 import { Emitter } from "@pixi/particle-emitter";
-import { explosion, fire2, smoke } from "./EmitterConfig";
+import { fire2, smoke } from "./EmitterConfig";
+import gsap from "gsap";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+gsap.registerPlugin(MotionPathPlugin);
+
+export type EmitterData = {
+  emitter: Emitter;
+  point: Point;
+};
 
 export class SimpleParticle {
+  private mainContainer: Container;
+  private emittersHolder: EmitterData[];
   private emitter: Emitter;
   private emitter1: Emitter;
   private emitter2: Emitter;
@@ -16,36 +26,52 @@ export class SimpleParticle {
 
   constructor(container: Container) {
     this.isRunning = false;
-    container.eventMode = "none";
-    //EventMode;
+    container.eventMode = "none"; //prevent some clash with particles
+
+    this.emittersHolder = [];
+
+    this.mainContainer = new Container();
+    container.addChild(this.mainContainer);
+
     this.emitter = new Emitter(
-      container,
+      this.mainContainer,
       fire2(
         Texture.from("./assets/TaskThree/texture.png"),
         Texture.from("./assets/TaskThree/Fire.png")
       )
     );
-
+    this.emittersHolder.push({ emitter: this.emitter, point: this.pt });
     this.emitter1 = new Emitter(
-      container,
+      this.mainContainer,
       smoke(
         Texture.from("./assets/TaskThree/texture.png"),
         Texture.from("./assets/TaskThree/Fire.png")
       )
     );
+    this.emittersHolder.push({ emitter: this.emitter1, point: this.pt1 });
 
     this.emitter2 = new Emitter(
-      container,
+      this.mainContainer,
+      smoke(
+        Texture.from("./assets/TaskThree/texture.png"),
+        Texture.from("./assets/TaskThree/Fire.png")
+      )
+    );
+    this.emittersHolder.push({ emitter: this.emitter2, point: this.pt2 });
+  }
+
+  public setnewFire(pt: Point) {
+    const emitter = new Emitter(
+      this.mainContainer,
       smoke(
         Texture.from("./assets/TaskThree/texture.png"),
         Texture.from("./assets/TaskThree/Fire.png")
       )
     );
 
-    this.emitterExplosion = new Emitter(
-      container,
-      explosion(Texture.from("./assets/TaskThree/texture.png"))
-    );
+    emitter.spawnPos.copyFrom(pt);
+    emitter.emit = true;
+    this.emittersHolder.push({ emitter: emitter, point: pt });
   }
 
   public start() {
@@ -56,18 +82,18 @@ export class SimpleParticle {
 
   public stop() {
     this.isRunning = false;
+    this.emittersHolder.forEach((element: EmitterData) => {
+      element.emitter.emit = false;
+      element.emitter.particleCount = 0;
+    });
   }
 
   public update(deltaTime: number) {
     if (!this.isRunning) return;
 
-    this.emitter.update(deltaTime * 0.002);
-    this.emitter.spawnPos.copyFrom(this.pt);
-
-    this.emitter1.update(deltaTime * 0.002);
-    this.emitter1.spawnPos.copyFrom(this.pt1);
-
-    this.emitter2.update(deltaTime * 0.002);
-    this.emitter2.spawnPos.copyFrom(this.pt2);
+    this.emittersHolder.forEach((element: EmitterData) => {
+      element.emitter.update(deltaTime * 0.002);
+      element.emitter.spawnPos.copyFrom(element.point);
+    });
   }
 }
